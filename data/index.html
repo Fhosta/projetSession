@@ -1,0 +1,84 @@
+<!-- 
+Auteur : Florian Hostachy
+Date : 01/09/2022
+Fonction : Interface qui permettra l'utilisation du four avec les différentes informations utilies pour le bon fonctionnement
+Contrainte : Ne pas utiliser de framework uniquement html css
+Version : 1.0
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet de session</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="script.js"></script>
+
+</head>
+<body>
+<div class="blockGauche">
+    <img src="sac" width="180px" height="120px" alt="">
+    <h2>Type de bois : </h2>
+
+    <!-- Les différent bois pour qui viendront des informations de l'api  -->
+    <select name="viewport" id="" class="select" style ="width: 300px; height:30px; margin-left: 15px;";>
+        <option value="default">Erable</option>
+    </select>
+    <h2>Caractéristiques : </h2>
+    <br>
+    <div class="border">    
+        <span>
+        <p>Bois &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</p>
+        <input type="text"  id = "bois" style=" width: 75px;" readonly>
+        </span> 
+        <span>
+        <p>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</p>
+        <input type="text" id="type" style=" width: 75px;" readonly>
+        </span>
+        <span>
+        <p>Origine &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p>
+        <input type="text" id="origin" style=" width: 75px;" readonly>
+        </span>
+        <span>
+        <p>Temps de séchage :</p>
+        <input type="text" id="tempsSechage" style=" width: 75px;" readonly>
+        </span>
+        <span>
+        <p>Température min &nbsp; :</p>
+        <input type="text" id="tempMin" style=" width: 75px;" readonly>
+        </span>
+    </div>
+</div>
+<h2 class="titre">Contrôle du four de séchage</h2>
+    <div class="blockDroite">
+        <br>
+        <h3 align="center">Température du four</h3>
+        <br>
+        <div class="celsius">
+            <input type="text" style="text-align: right; color: blue; font-weight: bold; font-size: large; width: 2em" readonly  id="temp"></input>
+        <h3 align="center" class="couleurCelsius">Celsius</h3>
+        </div>
+        <button class="bouton">Démarrage du four</button>
+
+        <!-- Différentes informations pour le bon fonctionnement du four qui viendront de l'api une fois que le bois sera sélectionner   --> 
+        <div class="information">
+            <span>
+                <input type="text" id="boisCuisson" name="bois" style=" width: 100px;" readonly>
+            </span>
+            <span>
+                <input type="int" id="tempRestantCuisson" name="tempRestant"  style=" width: 100px;" readonly>
+            </span> 
+            <span>
+                <input type="int" id="tempsSechageCuisson" name="tempsSechage"  style=" width: 100px;" readonly>
+            </span> 
+            <span>
+                <input type="int" id="tempMinCuisson" name="tempMin"  style=" width: 100px;" readonly>
+            </span>
+        </div>
+    </div>
+    <!-- <script type="text/javascript">getFromESP_getNom();</script> -->
+    
+</body>
+</html>
