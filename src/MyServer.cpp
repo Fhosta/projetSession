@@ -61,5 +61,38 @@ void MyServer::initAllRoutes()
     request->send(200, "text/plain", lireTempDuFour );
     });
 
+HTTPClient http;
+String apiRestAddress = "http://165.227.37.65:3000/woods";
+http.begin(apiRestAddress);
+http.GET();
+String response = http.getString();
+Serial.print(response);
+String tempToSend;
+StaticJsonDocument<5000> doc;
+
+response = "";
+if(response[response.length()-1]==']') response[response.length()-1] = ' ';
+if(response[0]=='[') response[0] = ' ';
+
+deserializeJson(doc, response);
+JsonObject obj1 = doc.as<JsonObject>();
+std::string woodId;
+String woodName;
+
+for (JsonPair kv1 : obj1) {
+woodId = kv1.key().c_str();
+Serial.print("Element : ");Serial.println(woodId.c_str());
+
+JsonObject elem = obj1[woodId];
+woodName = elem["name"].as<String>();
+if(tempToSend!="") tempToSend += "&";
+tempToSend += String(woodId.c_str()) + String("&") + String(woodName.c_str());
+Serial.print(woodName);Serial.print(" ");
+//Pour parcourir les éléments de l'objet
+for (JsonPair kv2 : elem) {
+Serial.print(" Sous element : ");Serial.print(kv2.key().c_str());
+Serial.print(" : ");Serial.println(kv2.value().as<char*>());
+}
+}
     this->begin();
 };
