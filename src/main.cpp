@@ -99,38 +99,13 @@ std::string CallBackMessageListener(string message)
 {
   while (replaceAll(message, std::string("  "), std::string(" ")))
     ;
-  // Décortiquer le message
-  // string actionToDo = getValue(message, ' ', 0);
-  // string arg1 = getValue(message, ' ', 1);
-  // string arg2 = getValue(message, ' ', 2);
-  // string arg3 = getValue(message, ' ', 3);
-  // string arg4 = getValue(message, ' ', 4);
-  // string arg5 = getValue(message, ' ', 5);
-  // string arg6 = getValue(message, ' ', 6);
-  // string arg7 = getValue(message, ' ', 7);
-  // string arg8 = getValue(message, ' ', 8);
-  // string arg9 = getValue(message, ' ', 9);
-  // string arg10 = getValue(message, ' ', 10);
-
-  // if (string(actionToDo.c_str()).compare(string("action")) == 0)
-  // {
-  //   return (String("Ok").c_str());
-  // }
-
-  // std::string result = "";
-
-  // return result;
-
-  // string actionToDo = getValue(message, ' ', 0);
-  // std::string nomDuFour = "Four9394";
-  // if (string(actionToDo.c_str()).compare(string("askNomFour")) == 0) {
-  // return(nomDuFour.c_str()); }
-
+ 
   string actionToDo = getValue(message, ' ', 0);
   std::string tempDuFour = strTemperature; //Lire le senseur de température
   if (string(actionToDo.c_str()).compare(string("askTempFour")) == 0) {
   return(tempDuFour.c_str()); }
 
+  
 
 }
 
