@@ -23,31 +23,31 @@ Version : 1.0
     <h2>Type de bois : </h2>
 
     <!-- Les différent bois pour qui viendront des informations de l'api  -->
-    <select name="viewport" id="listeBois"  class="select" style ="width: 300px; height:30px; margin-left: 15px;";>
-
+    <select name="viewport" id="listeBois" onchange="getFromESP_getAllWoodDetail(this)" class="select" style ="width: 300px; height:30px; margin-left: 15px;";>
+    <option>Selection votre bois</option>
     </select>
     <h2>Caractéristiques : </h2>
     <br>
     <div class="border">    
         <span>
-        <p>Bois &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</p>
-        <input type="text"  id = "bois" style=" width: 75px;" readonly>
+        <p>Bois</p><p style="margin-left: 30%;">:</p>
+        <p type="text"  id="bois" style="margin-right: 55%;"></p>
         </span> 
         <span>
-        <p>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</p>
-        <input type="text" id="type" style=" width: 75px;" readonly>
+        <p>Type</p><p style="margin-left: 30%;">:</p>
+        <p type="text" id="type"  style="margin-right: 55%;"></p>
         </span>
         <span>
-        <p>Origine &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p>
-        <input type="text" id="origin" style=" width: 75px;" readonly>
+        <p>Origine</p><p style="margin-left: 27%;">:</p>
+        <p type="text" id="origin" style="margin-right: 55%;"></p>
         </span>
         <span>
-        <p>Temps de séchage :</p>
-        <input type="text" id="tempsSechage" style=" width: 75px;" readonly>
+        <p>Temps de séchage </p><p style="margin-left: 10%;">:</p>
+        <p type="text" id="tempsSechage"  style="margin-right: 40%;"></p>
         </span>
         <span>
-        <p>Température min &nbsp; :</p>
-        <input type="text" id="tempMin" style=" width: 75px;" readonly>
+        <p>Température min </p><p style="margin-left: 10%;">:</p>
+        <p type="text" id="tempMin" style="margin-right: 50%;"></p>
         </span>
     </div>
 </div>
@@ -60,25 +60,24 @@ Version : 1.0
             <input type="text" style="text-align: right; color: blue; font-weight: bold; font-size: large; width: 2em" readonly  id="temp"></input>
         <h3 align="center" class="couleurCelsius">Celsius</h3>
         </div>
-        <button class="bouton">Démarrage du four</button>
+        <button class="bouton" id="Demarrer">Démarrage du four</button>
 
         <!-- Différentes informations pour le bon fonctionnement du four qui viendront de l'api une fois que le bois sera sélectionner   --> 
         <div class="information">
             <span>
-                <input type="text" id="boisCuisson" name="bois" style=" width: 100px;" readonly>
+                <p type="text" id="boisCuisson" name="bois" style="margin-left: 30px;"></p>
             </span>
             <span>
-                <input type="int" id="tempRestantCuisson" name="tempRestant"  style=" width: 100px;" readonly>
+                <p id="tempRestantCuisson" name="tempRestant" style="margin-left: 50px;">10</p>
             </span> 
             <span>
-                <input type="int" id="tempsSechageCuisson" name="tempsSechage"  style=" width: 100px;" readonly>
+                <p  id="tempsSechageCuisson" name="tempsSechage"  ></p>
             </span> 
             <span>
-                <input type="int" id="tempMinCuisson" name="tempMin"  style=" width: 100px;" readonly>
+                <p id="tempMinCuisson" name="tempMin" style="margin-left: 50px;"></p>
             </span>
         </div>
     </div>
-    <!-- <script type="text/javascript">getFromESP_getNom();</script> -->
     
 </body>
 </html>

@@ -47,7 +47,7 @@ float MyDHT::getTemp()
 {
     dht->temperature().getEvent(&event);
     if (isnan(event.temperature)) {
-        Serial.println(F("Error reading temperature!"));
+        // Serial.println(F("Error reading temperature!"));
         return 0;
     }
     else {

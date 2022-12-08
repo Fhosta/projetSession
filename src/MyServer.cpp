@@ -46,14 +46,7 @@ void MyServer::initAllRoutes()
     this->onNotFound([](AsyncWebServerRequest *request)
                      { request->send(404, "text/plain", "Page Not Found"); });
 
-
-    // this->on("/getNomEsp", HTTP_GET, [](AsyncWebServerRequest *request) {
-    // std::string repString = "";
-    // if (ptrToCallBackFunction) repString = (*ptrToCallBackFunction)("askNomFour");
-    // String lireNomDuFour =String(repString.c_str());
-    // request->send(200, "text/plain", lireNomDuFour );
-    // });
-    this->on("/lireTemp", HTTP_GET, [](AsyncWebServerRequest *request) 
+    this->on("/getTemp", HTTP_GET, [](AsyncWebServerRequest *request) 
     {
     std::string repString = "";
     if (ptrToCallBackFunction) repString = (*ptrToCallBackFunction)("askTempFour");
@@ -61,46 +54,61 @@ void MyServer::initAllRoutes()
     request->send(200, "text/plain", lireTempDuFour );
     });
 
+    this->on("/getAllWood", HTTP_GET, [](AsyncWebServerRequest *request) 
+    {
+        HTTPClient http;
+        String apiRestAddress = "http://165.227.37.65:3000/woods";
+        http.begin(apiRestAddress);
+        http.GET();
+        String response = http.getString();
+        Serial.print(response);
+        String tempToSend;
+        StaticJsonDocument<5000> doc;
+        request->send(200, "text/plain", response );
 
-this->on("/getAllWood", HTTP_GET, [](AsyncWebServerRequest *request) 
-{
-    HTTPClient http;
-    String apiRestAddress = "http://165.227.37.65:3000/woods";
-    http.begin(apiRestAddress);
-    http.GET();
-    String response = http.getString();
-    Serial.print(response);
-    String tempToSend;
-    StaticJsonDocument<5000> doc;
+    });
 
-    // response = "";
-    // if(response[response.length()-1]==']') response[response.length()-1] = ' ';
-    // if(response[0]=='[') response[0] = ' ';
-
-    // deserializeJson(doc, response);
-    // JsonObject obj1 = doc.as<JsonObject>();
-    // std::string woodId;
-    // String woodName;
-
-    // for (JsonPair kv1 : obj1) 
+    // this->on("/getAllWoodDetail", HTTP_GET, [](AsyncWebServerRequest *request) 
     // {
-    // woodId = kv1.key().c_str();
-    // Serial.print("Element : ");Serial.println(woodId.c_str());
+    //     AsyncWebParameter* p = request->getParam("name");
+        
+    //     HTTPClient http;
+    //     String apiRestAddress = "http://165.227.37.65:3000/woodinfo/"+p->value();
+    //     http.begin(apiRestAddress);
+    //     http.GET();
+    //     String response = http.getString();
+    //     Serial.print(response);
+    //     String tempToSend;
+    //     StaticJsonDocument<5000> doc;
+    //     request->send(200, "text/plain", response );
+    // });
 
-    // JsonObject elem = obj1[woodId];
-    // woodName = elem["name"].as<String>();
-    // if(tempToSend!="") tempToSend += "&";
-    // tempToSend += String(woodId.c_str()) + String("&") + String(woodName.c_str());
-    // Serial.print(woodName);Serial.print(" ");
-    // //Pour parcourir les éléments de l'objet
-    // for (JsonPair kv2 : elem)
-    //     {
-    //         Serial.print(" Sous element : ");Serial.print(kv2.key().c_str());
-    //         Serial.print(" : ");Serial.println(kv2.value().as<char*>());
-    //     }
-    // }
-    request->send(200, "text/plain", response );
+    this->on("/getAllWoodDetail", HTTP_GET, [](AsyncWebServerRequest *request) {
+        if(request->hasParam("name"))
+        {
 
-});
-    this->begin();
-};
+            AsyncWebParameter* p = request->getParam("name");
+            HTTPClient http;
+            String apiRestAddress = "http://165.227.37.65:3000/woodinfo/" + p->value();
+            String response = "Error";
+            bool beginResult = http.begin(apiRestAddress);
+            if(!beginResult){
+                Serial.println("Erreur lors de la connection au serveur");
+            }
+            else{
+                Serial.println("Connection au serveur réussie");
+                http.GET();
+                response = http.getString();
+                Serial.println(response);
+                http.end();
+            }
+
+            request->send(200, "text/plain", response);
+        }
+        else{
+            request->send(400, "text/plain", "Erreur : Paramètres manquant");
+        };
+    });
+        this->begin();
+    };
+
