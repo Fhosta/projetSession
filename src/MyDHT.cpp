@@ -2,7 +2,7 @@
  * MyTemp.cpp
  *
  *  Created on : 04/05/22
- *  @Author: Samy
+ *  @Author: Florian Hostachy
  */
 #include <Adafruit_Sensor.h>
 #include <DHT.h>

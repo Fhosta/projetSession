@@ -1,4 +1,4 @@
-/* Copyright (C) 2022 Samy Bennabi
+/* Copyright (C) 2022 Florian Hostachy
  * All rights reserved.
  * Projet d'intégration 2
  * 
@@ -6,7 +6,7 @@
  * Cours Systèmes embarqués (c)2022
  *  
     @file           : MyDHT.h
-    @author         : Samy Bennabi
+    @author         : Florian Hostachy
     @version        : 1.0   04/05/22
     @description    : Classe permettant d'utiliser le senseur DHT
 
@@ -16,8 +16,8 @@
 
     Historique des versions
         Version    Date       Auteur       Description
-        1.0        04/05/22   Samy       Première version du logiciel
-        1.1        26/05/22   Samy       Ajout des fonctions pour humidité
+        1.0        04/05/22   Florian Hostachy       Première version du logiciel
+        1.1        26/05/22   Florian Hostachy       Ajout des fonctions pour humidité
 
 **/
 #ifndef MYDHT_H

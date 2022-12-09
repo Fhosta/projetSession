@@ -252,7 +252,20 @@
  .pio/libdeps/esp32doit-devkit-v1/Adafruit\ Unified\ Sensor/Adafruit_Sensor.h \
  .pio/libdeps/esp32doit-devkit-v1/DHT\ sensor\ library/DHT.h \
  .pio/libdeps/esp32doit-devkit-v1/DHT\ sensor\ library/DHT_U.h \
- src/MyServer.h \
+ src/MyOled.h src/MyOledView.h \
+ .pio/libdeps/esp32doit-devkit-v1/Adafruit\ SSD1306/Adafruit_SSD1306.h \
+ .pio/libdeps/esp32doit-devkit-v1/Adafruit\ GFX\ Library/Adafruit_GFX.h \
+ .pio/libdeps/esp32doit-devkit-v1/Adafruit\ GFX\ Library/gfxfont.h \
+ .pio/libdeps/esp32doit-devkit-v1/Adafruit\ BusIO/Adafruit_I2CDevice.h \
+ C:/Users/hosta/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.h \
+ C:/Users/hosta/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \
+ .pio/libdeps/esp32doit-devkit-v1/Adafruit\ BusIO/Adafruit_SPIDevice.h \
+ C:/Users/hosta/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
+ C:/Users/hosta/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
+ src/MyOledViewErrorWifiConnexion.h src/MyOledViewInitialisation.h \
+ src/MyOledViewWifiAp.h src/MyOledViewWorking.h \
+ src/MyOledViewWorkingCOLD.h src/MyOledViewWorkingHEAT.h \
+ src/MyOledViewWorkingOFF.h src/MyServer.h \
  .pio/libdeps/esp32doit-devkit-v1/AsyncTCP-esphome/src/AsyncTCP.h \
  C:/Users/hosta/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/lwip/lwip/src/include/lwip/pbuf.h \
  C:/Users/hosta/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/lwip/lwip/src/include/lwip/err.h \

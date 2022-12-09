@@ -11,8 +11,7 @@ using namespace std;
 typedef std::string (*CallbackType)(std::string);
 CallbackType MyServer::ptrToCallBackFunction = NULL;
 
-// Exemple pour appeler une fonction CallBack
-// if (ptrToCallBackFunction) (*ptrToCallBackFunction)(stringToSend);
+
 void MyServer::initCallback(CallbackType callback)
 {
     ptrToCallBackFunction = callback;
@@ -37,15 +36,18 @@ void MyServer::initAllRoutes()
     this->on("/script.js", HTTP_GET, [](AsyncWebServerRequest *request)
              { request->send(SPIFFS, "/script.js", "text/javascript"); });
 
+    // Route index.css
     this->on("/index.css", HTTP_GET, [](AsyncWebServerRequest *request)
              { request->send(SPIFFS, "/index.css", "text/css"); });
 
+    //Route image
     this->on("/sac", HTTP_GET, [](AsyncWebServerRequest *request)
              { request->send(SPIFFS, "/sac.png", "img/png"); });
 
     this->onNotFound([](AsyncWebServerRequest *request)
                      { request->send(404, "text/plain", "Page Not Found"); });
 
+    //Route pour avoir la température
     this->on("/getTemp", HTTP_GET, [](AsyncWebServerRequest *request) 
     {
     std::string repString = "";
@@ -54,6 +56,16 @@ void MyServer::initAllRoutes()
     request->send(200, "text/plain", lireTempDuFour );
     });
 
+    //Route pour avoir le compteur
+     this->on("/getTempsCompteur", HTTP_GET, [](AsyncWebServerRequest *request) 
+    {
+    std::string repString = "";
+    if (ptrToCallBackFunction) repString = (*ptrToCallBackFunction)("askTempsCompteur");
+    String lireTempsCompteur =String(repString.c_str());
+    request->send(200, "text/plain", lireTempsCompteur );
+    });
+
+    //Route pour l'obtension des bois
     this->on("/getAllWood", HTTP_GET, [](AsyncWebServerRequest *request) 
     {
         HTTPClient http;
@@ -67,6 +79,7 @@ void MyServer::initAllRoutes()
 
     });
 
+    //Route pour l'obtemsion des détail
     this->on("/getAllWoodDetail", HTTP_GET, [](AsyncWebServerRequest *request) {
         if(request->hasParam("name"))
         {
@@ -92,6 +105,8 @@ void MyServer::initAllRoutes()
             request->send(400, "text/plain", "Erreur : Paramètres manquant");
         };
     });
+
+    //Route qui retourne les informations des bois
     this->on("/envoyerInfo", HTTP_GET, [](AsyncWebServerRequest *request)
     {
         AsyncResponseStream *response = request->beginResponseStream("text/html"); //Reception de la réponse

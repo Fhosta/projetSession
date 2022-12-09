@@ -16,12 +16,23 @@ setInterval(function getlireTemp(){
     xhttp.send();
    }, 1000);
 
+
+   setInterval(function getlireTempsCompteur(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if(this.status == 200) {
+    document.getElementById("tempRestantCuisson").innerHTML = this.responseText;
+    }
+    };
+    xhttp.open("GET", "getTempsCompteur", true);
+    xhttp.send();
+   }, 1000);
+
 function getFromESP_getAllWood() 
 {
     var xhttp = new XMLHttpRequest();
     xhttp.responseType = 'text';
     xhttp.onreadystatechange = function () {
-        //console.log(this.responseText);
         const responseParsed = JSON.parse(this.responseText);
         if (this.readyState == 4 && this.status == 200) {
             for(let i = 0; i < responseParsed.length; i++) {
@@ -50,9 +61,7 @@ function getFromESP_getAllWoodDetail(selectedObject)
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        //console.log(this.responseText);
         const responseParsed = JSON.parse(this.responseText);
-        //console.table(boisSelectionner);
         if (this.readyState == 4 && this.status == 200) {
             boisSelectionner = responseParsed;
             document.getElementById("bois").innerHTML = selectedObject.options[selectedObject.selectedIndex].text;
@@ -74,9 +83,7 @@ function getFromESP_getAllWoodDetail(selectedObject)
 }
 
 function four(){
-    console.log('coucou');
     var xhttp = new XMLHttpRequest();
-    console.log(boisSelectionner.drying);
     xhttp.open("GET", "envoyerInfo?drying="+boisSelectionner.drying+"&tempMin="+boisSelectionner.tempMin, true);
     xhttp.send();
 }
