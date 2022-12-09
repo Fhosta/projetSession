@@ -61,27 +61,11 @@ void MyServer::initAllRoutes()
         http.begin(apiRestAddress);
         http.GET();
         String response = http.getString();
-        Serial.print(response);
         String tempToSend;
         StaticJsonDocument<5000> doc;
         request->send(200, "text/plain", response );
 
     });
-
-    // this->on("/getAllWoodDetail", HTTP_GET, [](AsyncWebServerRequest *request) 
-    // {
-    //     AsyncWebParameter* p = request->getParam("name");
-        
-    //     HTTPClient http;
-    //     String apiRestAddress = "http://165.227.37.65:3000/woodinfo/"+p->value();
-    //     http.begin(apiRestAddress);
-    //     http.GET();
-    //     String response = http.getString();
-    //     Serial.print(response);
-    //     String tempToSend;
-    //     StaticJsonDocument<5000> doc;
-    //     request->send(200, "text/plain", response );
-    // });
 
     this->on("/getAllWoodDetail", HTTP_GET, [](AsyncWebServerRequest *request) {
         if(request->hasParam("name"))
@@ -99,7 +83,6 @@ void MyServer::initAllRoutes()
                 Serial.println("Connection au serveur réussie");
                 http.GET();
                 response = http.getString();
-                Serial.println(response);
                 http.end();
             }
 
@@ -109,6 +92,16 @@ void MyServer::initAllRoutes()
             request->send(400, "text/plain", "Erreur : Paramètres manquant");
         };
     });
+    this->on("/envoyerInfo", HTTP_GET, [](AsyncWebServerRequest *request)
+    {
+        AsyncResponseStream *response = request->beginResponseStream("text/html"); //Reception de la réponse
+        AsyncWebParameter* drying = request->getParam(0); // Récupération de la valeur du premier paramètre de notre requête GET
+        AsyncWebParameter* tempMin = request->getParam(1); // Récupération de la valeur du premier paramètre de notre requête GET
+        String sendTo = "button envoyerInfo ";
+        String actionToSend = String(sendTo + drying->value() + " " + tempMin->value());
+        if (ptrToCallBackFunction) (*ptrToCallBackFunction)(actionToSend.c_str());
+        request->send(200, "text/plain", "envoyerInfo");
+    });
         this->begin();
-    };
+};
 

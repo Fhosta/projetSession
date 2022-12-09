@@ -91,22 +91,50 @@ const char* serverName = "http://165.227.37.65:3000/bois";
 unsigned long last_time = 0;
 unsigned long timer_delay = 10000;
 
+
+int drying = 0;
+int dryingBois = 0;
+int tempMin = 0;
+int compteur = 0;
+bool isDrying = false;
+
 String boisReadings;
 // fonction statique qui permet aux objets d'envoyer des messages (callBack)
 //   arg0 : Action
 //  arg1 ... : Parametres
 std::string CallBackMessageListener(string message)
 {
-  while (replaceAll(message, std::string("  "), std::string(" ")))
-    ;
+  while (replaceAll(message, std::string("  "), std::string(" ")));
+
+    string actionToDo = getValue(message, ' ', 0);
+    string arg1 = getValue(message, ' ', 1);
+    string arg2 = getValue(message, ' ', 2);
+    string arg3 = getValue(message, ' ', 3);
+    string arg4 = getValue(message, ' ', 4);
+    string arg5 = getValue(message, ' ', 5);
+    string arg6 = getValue(message, ' ', 6);
+    string arg7 = getValue(message, ' ', 7);
+    string arg8 = getValue(message, ' ', 8);
+    string arg9 = getValue(message, ' ', 9);
+    string arg10 = getValue(message, ' ', 10);
  
-  string actionToDo = getValue(message, ' ', 0);
   std::string tempDuFour = strTemperature; //Lire le senseur de température
   if (string(actionToDo.c_str()).compare(string("askTempFour")) == 0) {
   return(tempDuFour.c_str()); }
 
-  
-
+  if (string(actionToDo.c_str()).compare(string("button")) == 0) 
+  {
+        if(string(arg1.c_str()).compare(string("envoyerInfo")) == 0) 
+        {
+            drying = atoi(arg2.c_str());
+            Serial.println(drying);
+            dryingBois = atoi(arg2.c_str());
+            tempMin = atoi(arg3.c_str());
+            Serial.println(tempMin);
+            isDrying = true;
+            return(String("Ok").c_str());
+        }
+  }
 }
 
 void setup()
@@ -123,7 +151,8 @@ void setup()
   ssIDRandom = ssIDRandom + stringRandom;
   stringRandom = get_random_string(4).c_str();
   PASSRandom = PASSWORD;
-  PASSRandom = PASSRandom + stringRandom;
+  PASSRandom = PASSRandom ;
+  // +stringRandom
 
   char strToPrint[128];
   sprintf(strToPrint, "Identification : %s   MotDePasse: %s", ssIDRandom, PASSRandom);
@@ -146,8 +175,10 @@ void setup()
 
 void loop()
 {
+  delay(3000);
   temperature = dht->getTemp();
   sprintf(strTemperature, "%g", temperature);
+  Serial.println(drying);
 }
 
 String httpGETRequest(const char* serverName) {

@@ -1,3 +1,6 @@
+var boisSelectionner;
+
+
 window.addEventListener('load',()=>{
  getFromESP_getAllWood();
 });
@@ -18,7 +21,7 @@ function getFromESP_getAllWood()
     var xhttp = new XMLHttpRequest();
     xhttp.responseType = 'text';
     xhttp.onreadystatechange = function () {
-        console.log(this.responseText);
+        //console.log(this.responseText);
         const responseParsed = JSON.parse(this.responseText);
         if (this.readyState == 4 && this.status == 200) {
             for(let i = 0; i < responseParsed.length; i++) {
@@ -47,10 +50,11 @@ function getFromESP_getAllWoodDetail(selectedObject)
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        console.log(this.responseText);
+        //console.log(this.responseText);
         const responseParsed = JSON.parse(this.responseText);
-        console.table(responseParsed);
+        //console.table(boisSelectionner);
         if (this.readyState == 4 && this.status == 200) {
+            boisSelectionner = responseParsed;
             document.getElementById("bois").innerHTML = selectedObject.options[selectedObject.selectedIndex].text;
             document.getElementById("boisCuisson").innerHTML = selectedObject.options[selectedObject.selectedIndex].text;
             document.getElementById("type").innerHTML = responseParsed.type;
@@ -61,9 +65,18 @@ function getFromESP_getAllWoodDetail(selectedObject)
             document.getElementById("tempMin").innerHTML = responseParsed.tempMin + " °C";
             document.getElementById("tempMinCuisson").innerHTML = "(min:"+responseParsed.tempMin + " °C)";
         }
+            document.getElementById("Demarrer").addEventListener("click", four);
     }
 
     xhttp.open("GET", "getAllWoodDetail?name=" + params, true);
     xhttp.send();
+    
+}
 
+function four(){
+    console.log('coucou');
+    var xhttp = new XMLHttpRequest();
+    console.log(boisSelectionner.drying);
+    xhttp.open("GET", "envoyerInfo?drying="+boisSelectionner.drying+"&tempMin="+boisSelectionner.tempMin, true);
+    xhttp.send();
 }
