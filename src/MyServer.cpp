@@ -1,8 +1,8 @@
 /**
     Gestion d'un serveur WEB
     @file MyServer.cpp
-    @author Alain Dubé
-    @version 1.1 20/11/20
+    @author Alain Dubé et Florian Hostachy
+    @version 1.5 
 */
 #include <Arduino.h>
 #include "MyServer.h"

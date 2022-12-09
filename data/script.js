@@ -1,6 +1,5 @@
 var boisSelectionner;
 
-
 window.addEventListener('load',()=>{
  getFromESP_getAllWood();
 });

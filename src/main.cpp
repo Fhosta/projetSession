@@ -76,7 +76,6 @@ WiFiManager wm;
 MyDHT *dht;
 float temperature = 0;
 char strTemperature[64] = "";
-char strDrying[64] = "";
 #define PinTemp  15
 #define dhtType DHT22
 
@@ -119,12 +118,13 @@ const char *PASSWORD = "sac12345";
 String ssIDRandom;
 
 // serveur api 
-const char* serverName = "http://165.227.37.65:3000/bois";
+const char *SERVERNAME = "http://165.227.37.65:3000/bois";
 unsigned long last_time = 0;
 unsigned long timer_delay = 10000;
 
 int drying = 0;
 int dryingBois = 0;
+char strDrying[64] = "";
 int tempMin = 0;
 int compteur = 0;
 bool isDrying = false;
@@ -281,6 +281,8 @@ void loop()
   delay(3000);
   temperature = dht->getTemp();
   sprintf(strTemperature, "%g", temperature);
+  sprintf(strDrying,"%d",dryingBois);
+
 
   myOledViewWorking->setParams("temp", strTemperature);
 
@@ -291,8 +293,6 @@ void loop()
     if(temperature >= tempMin){
     displayViewHEAT();
     dryingBois --;
-    sprintf(strDrying,"%g",dryingBois);
-    Serial.println(dryingBois);
     }else{
     displayViewCOLD();
     }
@@ -305,11 +305,11 @@ void loop()
   delay(1000); // reduct
 }
 
-String httpGETRequest(const char* serverName) {
+String httpGETRequest(const char* SERVERNAME) {
   HTTPClient http;
     
   // Your Domain name with URL path or IP address with path
-  http.begin(serverName);
+  http.begin(SERVERNAME);
   
   // Send HTTP POST request
   int httpResponseCode = http.GET();
