@@ -39,3 +39,11 @@ IP de l'api : 165.227.37.65:3000
 * http://165.227.37.65:3000/api/woods
 * http://165.227.37.65:3000/api/woodinfo/
 
+# Fonction utile :
+
+* MYLIB sert à generé des chaines aléatoires
+
+
+# Copyright
+
+ Florian Hostachy
