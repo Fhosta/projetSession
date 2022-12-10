@@ -53,7 +53,8 @@
                 index.css               V1.0    CSS
                 script.js               V1.0    JS (fonctions JavaScript)
 
-    Liens gitHub
+    Liens gitHub :
+    https://github.com/Fhosta/projetSession
 
  * */
 
@@ -165,10 +166,15 @@ std::string CallBackMessageListener(string message)
             dryingBois = atoi(arg2.c_str());
             tempMin = atoi(arg3.c_str());
             Serial.println(tempMin);
-            isDrying = true;
+            isDrying = false;
             return(String("Ok").c_str());
         }
   }
+
+  if(string(arg1.c_str()).compare(string("demarrerFour"))==0){
+          isDrying=true;
+            return(String("Ok").c_str());
+        }
 }
 
 void displayViewAP()
